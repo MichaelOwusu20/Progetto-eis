@@ -34,9 +34,9 @@ public class GuardianAPIClient extends Adapter {
         int totalPages = 20;
         int page = 1;
 
-        makeDirectory();
 
-        while (page < totalPages + 1) {
+
+        while (page <= totalPages) {
             try {
 
                 response = makeApiRequest(page);
@@ -61,12 +61,6 @@ public class GuardianAPIClient extends Adapter {
 
                 }
 
-                try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath + "theguardian_article_" + page + ".json"))) {
-                    writer.write(response);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
                 page++;
 
             } catch (JSONException e) {
@@ -80,6 +74,8 @@ public class GuardianAPIClient extends Adapter {
 
         String apiResponse = "";
         String requestUrl = API_URL + "&page=" + pageNumber + "&show-fields=bodyText&page-size=50&q=" + query;
+
+        makeDirectory();
 
         try {
             URL url = new URL(requestUrl);
@@ -103,6 +99,13 @@ public class GuardianAPIClient extends Adapter {
             }
 
             conn.disconnect();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //download della response
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath + "theguardian_article_" + pageNumber + ".json"))) {
+            writer.write(apiResponse);
         } catch (IOException e) {
             e.printStackTrace();
         }

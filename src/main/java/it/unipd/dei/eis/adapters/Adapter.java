@@ -14,6 +14,7 @@ public abstract class Adapter {
 
    public ArrayList<Article> getArrayList() { return articlesList; }
    public String getFilePath() { return filePath; }
+   public void setFilePath(String path) { filePath = path; }
 
    public abstract void loadArrayList();
 }
