@@ -1,5 +1,6 @@
 package it.unipd.dei.eis;
-
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Article{
 
@@ -9,12 +10,14 @@ public class Article{
     //var. corpoArticolo
     private String bodyArticle="";
 
-    public Article(String Title,String bodyArticle){
-        this.Title=Title;
-        this.bodyArticle=bodyArticle;
-    }
+
     //Articolo vuoto
     public Article(){
+    }
+
+    public Article(String title, String body) {
+        Title = title;
+        bodyArticle = body;
     }
 
     //set dell'articolo
@@ -43,3 +46,21 @@ public class Article{
                 "</article>";
     }
 }
+
+/*
+
+CountingWords words = new CountingWords();
+    Map<String, String> ArticleMap = new TreeMap<>();
+
+
+public Article(String Title,String bodyArticle){
+        this.Title=Title;
+        this.bodyArticle=bodyArticle;
+        ArticleMap.put(Title, bodyArticle);
+        ArticleMap.get(Title);
+        ArticleMap.get(bodyArticle);
+        words.CountingTokens(Title, bodyArticle);
+    }
+
+
+ */

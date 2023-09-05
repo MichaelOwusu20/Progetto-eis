@@ -12,7 +12,34 @@ import java.io.BufferedReader;
 
 public class Deserialization {
 
-    /*public static Article Deserialize(String filePath, int choice){
+
+
+   public static ArrayList<Article> deserializeFileToArticle(String filePath) {
+      ArrayList<Article> articles = new ArrayList<Article>();
+      try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+         String title = null;
+         String bodyArticle = null;
+         String line;
+         while ((line = reader.readLine()) != null) {
+            if (line.startsWith("Titolo:")) {
+               title = line.substring("Titolo:".length());
+            } else if (line.startsWith("Contenuto:")) {
+               bodyArticle = line.substring("Contenuto:".length());
+            }
+
+               if (title != null && bodyArticle != null) {
+                  articles.add(new Article(title, bodyArticle));
+               }
+            }
+
+      } catch (IOException e) {
+         e.printStackTrace();
+      }
+      return articles;
+   }
+}
+
+/*public static Article Deserialize(String filePath, int choice){
 
 
             public static Article deserializeArticle(String filePath) {
@@ -58,4 +85,3 @@ public class Deserialization {
         }
 
     }*/
-}

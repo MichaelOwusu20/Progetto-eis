@@ -45,7 +45,7 @@ public class GuardianAPIClientTest {
 
       //verifico se il titolo del primo articolo dell'arrayList corrisponde con quello del primo aricolo scaricato
       assertEquals("Legal challenge against Sizewell C nuclear power plant rejected",adapter.getArrayList().get(0).getTitle());
-      
+
    }
 
 
