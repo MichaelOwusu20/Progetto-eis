@@ -27,8 +27,8 @@ public class NYTimescsvTest {
    }
 
    /**
-    *Verifica che l'ArrayList di articoli nel formato Article contenga tutti i 1000 articoli
-    * prelevati dal file CSV.
+    *Testa il metodo {@link NYTimescsv#loadArrayList()} verificando che l'ArrayList di
+    *oggetti Article contenga tutti i 1000 articoli prelevati dal file CSV.
     */
    @Test
    public void sizeOfArrayList() {
@@ -37,7 +37,7 @@ public class NYTimescsvTest {
    }
 
    /**
-    * Prendendo come esempio il primo e l'ottavo articolo dell'ArrayList verifica che il loro titolo
+    * Prendendo come esempio il primo e il nono articolo dell'ArrayList verifica che il loro titolo
     * corrisponda a quello presente nel file CSV.
     */
    @Test

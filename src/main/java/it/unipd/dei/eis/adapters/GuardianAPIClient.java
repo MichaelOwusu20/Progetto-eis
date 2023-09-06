@@ -26,7 +26,7 @@ public class GuardianAPIClient extends Adapter {
     public void downloadTheGuardian(){
 
         loadResponseArray();
-        makeDirectory();
+        makeDirectory(filePath);
 
         for(int i=1; i<= responseArray.length; i++)
         {
@@ -111,13 +111,27 @@ public class GuardianAPIClient extends Adapter {
             responseArray[i-1] = makeApiRequest(i);
     }
 
-    private void makeDirectory() {
-        File folder = new File(filePath);
+    public static void makeDirectory(String path) {
+        File folder = new File(path);
         if (!folder.exists()) {
             boolean success = folder.mkdirs();
             if (!success) {
                 System.out.println("Impossibile creare la cartella.");
             }
         }
+    }
+
+    public static boolean deleteDirectory(File directory) {
+        if (directory.isDirectory()) {
+            File[] files = directory.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    // Chiamata ricorsiva per eliminare i file/sottodirectory nella directory corrente
+                    deleteDirectory(file);
+                }
+            }
+        }
+        // Elimina la directory vuota o il file
+        return directory.delete();
     }
 }

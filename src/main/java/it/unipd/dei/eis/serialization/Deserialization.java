@@ -21,10 +21,10 @@ public class Deserialization {
          String bodyArticle = null;
          String line;
          while ((line = reader.readLine()) != null) {
-            if (line.startsWith("Titolo:")) {
-               title = line.substring("Titolo:".length());
-            } else if (line.startsWith("Contenuto:")) {
-               bodyArticle = line.substring("Contenuto:".length());
+            if (line.startsWith("Titolo: ")) {
+               title = line.substring("Titolo: ".length());
+            } else if (line.startsWith("Contenuto: ")) {
+               bodyArticle = line.substring("Contenuto: ".length());
             }
 
                if (title != null && bodyArticle != null) {

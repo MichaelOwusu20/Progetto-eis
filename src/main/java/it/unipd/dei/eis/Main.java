@@ -2,6 +2,7 @@ package it.unipd.dei.eis;
 
 import com.opencsv.exceptions.CsvValidationException;
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
 import it.unipd.dei.eis.adapters.GuardianAPIClient;
@@ -14,47 +15,101 @@ public class
 
     public static void main(String[] args) throws CsvValidationException, FileNotFoundException {
 
-        //new InteractiveMenu().runMenu();
-        System.out.println("Select choice\n");
-        System.out.println("1. Download dei file json del TheGuardian\n");
-        System.out.println("2. Serializza i file sorgente in file txt\n");
-        System.out.println("3. Analizza gli articoli selezionati\n ");
-        System.out.println("4. Esci\n ");
+        int num;
 
-        //lettura scanner di input
-        Scanner scanner = new Scanner(System.in);
-        int num = scanner.nextInt();
+        do {
+            //new InteractiveMenu().runMenu();
+            System.out.println("Select choice\n");
+            System.out.println("1. Download dei file json del TheGuardian\n");
+            System.out.println("2. Serializza i file sorgente in file txt\n");
+            System.out.println("3. Analizza gli articoli selezionati\n ");
+            System.out.println("4. Esci\n ");
 
-        switch(num){
-            case 1:
-                //Funzione che fa il download dei file json
+            //lettura scanner di input
+            Scanner scanner = new Scanner(System.in);
+            num = scanner.nextInt();
 
-            case 2:
-                NYTimescsv client1 = new NYTimescsv();
-                System.out.println("_______________________________________________");
-                client1.loadArrayList();
-                //System.out.println(client1.getArrayList());
-               // Serialization.serializeArticlesToFile(client1.getArrayList(), "./files/serialize.txt");
 
-               // ArrayList<Article> articles = Deserialization.deserializeFileToArticle("./files/serialize.txt");
 
-               //System.out.println(articles.get(1998));
-                System.out.println("_______________________________________________");
-                break;
-            case 3:
-                GuardianAPIClient client2 = new GuardianAPIClient();
-                System.out.println("_______________________________________________");
+            switch (num) {
+                case 1:
 
-                client2.loadArrayList();
-                //System.out.println(client2.getArrayList());
-                Serialization.serializeArticlesToFile(client2.getArrayList(), "./files/Serialize_TheGuardian.txt");
+                    System.out.println("_______________________________________________");
+                    GuardianAPIClient client = new GuardianAPIClient();
+                    client.downloadTheGuardian();
+                    System.out.println("---Download eseguito con successo---");
+                    System.out.println("_______________________________________________");
+                    break;
 
-                System.out.println("_______________________________________________");
-                break;
-            default:
-                System.out.println("Input invalido\n");
-        }
-        scanner.close();
+
+                case 2:
+
+                    System.out.println("_______________________________________________");
+                    System.out.println("Quale sorgente vuoi serializzare? ");
+                    int n;
+                    boolean the_guardian=false;
+                    boolean nyt=false;
+                    do
+                    {
+
+                        System.out.println("1.The Guardian");
+                        System.out.println("2.NewYorkTimes");
+                        System.out.println("3.Go back");
+
+                        n=scanner.nextInt();
+
+                        switch(n)
+                        {
+                            case 1:
+                                if (the_guardian){
+                                    System.out.println("Hai già serializzato gli articoli del The Guardian, per favore scegli un'altra opzione.");
+                                    break;
+                                }
+                                GuardianAPIClient client1 = new GuardianAPIClient();
+                                client1.loadArrayList();
+                                Serialization.serializeArticlesToFile(client1.getArrayList(), "./Files/serialize.txt");
+                                System.out.println("----Gli articoli del The Guardian sono stati serializzati----");
+                                break;
+                            case 2:
+                                if (nyt)
+                                {
+                                    System.out.println("Hai già serializzato gli articoli del NewYorkTimes, per favore scegli un'altra opzione.");
+                                    break;
+                                }
+                                NYTimescsv client2= new NYTimescsv();
+                                client2.loadArrayList();
+                                Serialization.serializeArticlesToFile(client2.getArrayList(), "./Files/serialize.txt");
+                                System.out.println("----Gli articoli del NewYorkTimes sono stati serializzati----");
+                                break;
+                            case 3 :
+                                break;
+                        }
+                    }while (n!=3);
+
+
+                    System.out.println("_______________________________________________");
+                    break;
+
+                case 3:
+
+                    System.out.println("_______________________________________________");
+
+
+                    System.out.println("_______________________________________________");
+                    break;
+                case 4 :
+                    NYTimescsv client3= new NYTimescsv();
+                    client3.loadArrayList();
+                    Serialization.serializeArticlesToFile(client3.getArrayList(), "./Files/serialize.txt");
+
+                    TermsExtraction.extraction();
+                    System.out.println("Arrivederci ...");
+                    break;
+                default:
+                    System.out.println("Input invalido\n");
+            }
+            scanner.close();
+        }while (num!=4);
 
     }
 }

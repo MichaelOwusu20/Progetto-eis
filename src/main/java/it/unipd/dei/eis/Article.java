@@ -45,6 +45,12 @@ public class Article{
                 "\t <Title>\n" + "\t<bodyArticle> \n" + "\t" + bodyArticle + "\n" +"\t <bodyArticle>\n" +
                 "</article>";
     }
+
+    //Funzione che permette di creare una stringa unica dell'articolo per poi poterne analizzare i termini
+    public String stringToAnalyze()
+    {
+        return Title+" "+bodyArticle;
+    }
 }
 
 /*
