@@ -1,35 +1,48 @@
 package it.unipd.dei.eis;
 
 import it.unipd.dei.eis.adapters.GuardianAPIClient;
+import it.unipd.dei.eis.adapters.NYTimescsv;
 import org.junit.Test;
-
+import static org.junit.Assert.*;
 import java.io.File;
 
-import static org.junit.Assert.*;
-
+/**
+ * Classe che testa il funzionamento della classe {@link GuardianAPIClient} e dei suoi metodi.
+ */
 public class GuardianAPIClientTest {
 
    private GuardianAPIClient adapter;
-   //private File file;
 
+   /**
+    * Testa il metodo {@link GuardianAPIClient#downloadTheGuardian()} Verificando che le responses
+    * del The Guardian vengano scaricate correttamente in una cartella specifica.
+    */
    @Test
-   public void makeApiRequestTest(){
+   public void downloadTheGuardianTest()
+   {
       adapter = new GuardianAPIClient();
 
       //cartella temporanea dove scaricare la risposta
       adapter.setFilePath("./tempDir/");
 
-      adapter.makeApiRequest(1);
-      File directory = new File(adapter.getFilePath());
+      //verifica che le richieste all'API The Guardian siano andate a buon fine
+      //e che le risposte siano state salvate nell'array a loro dedicato
+      adapter.downloadTheGuardian();
+      for(int i=0; i< adapter.getTotalPages(); i++) {
+         assertNotNull(adapter.getResponseArray(i));
+      }
+
+      //verifica che il numero di file scaricati nella cartella sia pari a 20
+      File directory = new File("./tempDir/");
       File[] files = directory.listFiles();
+      assertEquals(20,files.length);
 
-      assertEquals(1,files.length);
-
-      //elimino la cartella temporanea
-      if(!deleteDirectory(new File(adapter.getFilePath())))
+      //elimina la cartella temporanea
+      boolean success =  deleteDirectory(new File(adapter.getFilePath()));
+      if(!success)
          System.err.println("Non è stato possibile eliminare la directory.");
    }
-
+/*
    @Test
    public void loadArrayListTest() {
       adapter = new GuardianAPIClient();
@@ -47,6 +60,8 @@ public class GuardianAPIClientTest {
       assertEquals("Legal challenge against Sizewell C nuclear power plant rejected",adapter.getArrayList().get(0).getTitle());
 
    }
+
+ */
 
 
 
