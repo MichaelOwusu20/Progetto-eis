@@ -10,12 +10,12 @@ import it.unipd.dei.eis.Article;
 public class NYTimescsv extends Adapter {
 
     public NYTimescsv(){
-        filePath = "./files/NY Times/";
+        filePath = "./Files/NY Times/";
     }
 
     // public void loadArrayList() throws CsvValidationException, FileNotFoundException
     public void loadArrayList() {
-        Article article = new Article();
+
         CSVReader csvReader;
         try {
             csvReader = new CSVReader(new FileReader(filePath+"nytimes_articles_v2.csv"));
