@@ -31,6 +31,9 @@ public class DeserializationTest {
 
         ArrayList<Article> deserializedArray = Deserialization.deserializeFileToArticle("./tempDir/temp_serialization.txt");
 
+        //verifica che la lunghezza dell'arrayList creato sia pari al numero totale di articoli
+        assertEquals(1000, deserializedArray.size());
+
         int i = 0;
         for(Article article : deserializedArray)
         {
@@ -69,6 +72,9 @@ public class DeserializationTest {
         Serialization.serializeArticlesToFile(jsonAdapter.getArrayList(), "./tempDir/temp_serialization.txt");
 
         ArrayList<Article> deserializedArray = Deserialization.deserializeFileToArticle("./tempDir/temp_serialization.txt");
+
+        //verifica che la lunghezza dell'arrayList creato sia pari al numero totale di articoli
+        assertEquals(1000, deserializedArray.size());
 
         int i = 0;
         for(Article article : deserializedArray)

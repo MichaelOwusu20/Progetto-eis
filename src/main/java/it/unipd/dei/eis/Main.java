@@ -102,7 +102,7 @@ public class
                     client3.loadArrayList();
                     Serialization.serializeArticlesToFile(client3.getArrayList(), "./Files/serialize.txt");
 
-                    TermsExtraction.extraction();
+                    //TermsExtraction.extraction();
                     System.out.println("Arrivederci ...");
                     break;
                 default:

@@ -14,11 +14,10 @@ import java.io.IOException;
 public class TermsExtraction{
 
       //Scrive in un file txt le occorrenze delle parole negli articoli
-   public  static void extraction(){
+   public  static void extraction(ArrayList<Article> articles){
 
       try
       {
-         ArrayList<Article> articles = Deserialization.deserializeFileToArticle("./Files/serialize.txt");
          Map<String , Integer >wordCount= TermsExtraction.countWords(articles);
          BufferedWriter writer = new BufferedWriter(new FileWriter("./Files/output.txt"));
          for (Map.Entry<String, Integer> entry : wordCount.entrySet()) {

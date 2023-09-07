@@ -15,7 +15,7 @@ public class Serialization {
 
          for (Article article: articles) {
             writer.write("Titolo: " + article.getTitle() + "\n");
-            writer.write("Contenuto:" + article.getBodyArticle() + "\n");
+            writer.write("Contenuto: " + article.getBodyArticle() + "\n\n");
 
          }
          writer.close();
