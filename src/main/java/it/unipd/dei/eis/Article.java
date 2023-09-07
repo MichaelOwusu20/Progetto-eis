@@ -53,20 +53,3 @@ public class Article{
     }
 }
 
-/*
-
-CountingWords words = new CountingWords();
-    Map<String, String> ArticleMap = new TreeMap<>();
-
-
-public Article(String Title,String bodyArticle){
-        this.Title=Title;
-        this.bodyArticle=bodyArticle;
-        ArticleMap.put(Title, bodyArticle);
-        ArticleMap.get(Title);
-        ArticleMap.get(bodyArticle);
-        words.CountingTokens(Title, bodyArticle);
-    }
-
-
- */

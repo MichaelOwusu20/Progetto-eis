@@ -1,21 +1,17 @@
 package it.unipd.dei.eis;
 
-import com.opencsv.exceptions.CsvValidationException;
-import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Scanner;
 import it.unipd.dei.eis.adapters.GuardianAPIClient;
 import it.unipd.dei.eis.adapters.NYTimescsv;
-import it.unipd.dei.eis.serialization.Deserialization;
+
 import it.unipd.dei.eis.serialization.Serialization;
 
-public class
-   Main {
+public class Main {
 
-    public static void main(String[] args) throws CsvValidationException, FileNotFoundException {
+    public static void main(String[] args) {
 
         int num;
+        Scanner scanner = new Scanner(System.in);
 
         do {
             //new InteractiveMenu().runMenu();
@@ -26,9 +22,8 @@ public class
             System.out.println("4. Esci\n ");
 
             //lettura scanner di input
-            Scanner scanner = new Scanner(System.in);
             num = scanner.nextInt();
-
+            //scanner.close();
 
 
             switch (num) {
@@ -93,23 +88,21 @@ public class
                 case 3:
 
                     System.out.println("_______________________________________________");
-
-
+                    TermsExtraction.extraction("./Files/serialize.txt");
+                    System.out.println("Articoli analizzati ");
                     System.out.println("_______________________________________________");
                     break;
                 case 4 :
-                    NYTimescsv client3= new NYTimescsv();
-                    client3.loadArrayList();
-                    Serialization.serializeArticlesToFile(client3.getArrayList(), "./Files/serialize.txt");
 
-                    //TermsExtraction.extraction();
                     System.out.println("Arrivederci ...");
                     break;
                 default:
                     System.out.println("Input invalido\n");
             }
-            scanner.close();
+        //    scanner.close();
         }while (num!=4);
+
+        scanner.close();
 
     }
 }

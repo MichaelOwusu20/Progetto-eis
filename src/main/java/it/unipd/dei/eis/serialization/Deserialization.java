@@ -32,6 +32,8 @@ public class Deserialization {
                articles.add(new Article(title, bodyArticle));
          }
 
+         System.out.println("Deserializzato il file txt");
+
       } catch (IOException e) {
          e.printStackTrace();
       }

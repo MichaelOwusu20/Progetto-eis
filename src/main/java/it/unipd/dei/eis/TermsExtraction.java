@@ -10,22 +10,74 @@ import java.util.HashMap;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.List;
+import java.util.Comparator;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.stream.Collectors;
+import java.util.LinkedHashMap;
 
 public class TermsExtraction{
 
+   //Funzione che ordina le parole in base alle occorenze e conserva solo i primi  50 termini
+   public static Map<String,Integer> sortWords(Map<String,Integer> words )
+   {
+
+      List<Map.Entry<String, Integer>> entryList = new ArrayList<>(words.entrySet());
+
+      // Inverti il comparatore per l'ordinamento decrescente
+      Comparator<Map.Entry<String, Integer>> valueComparator = (entry1, entry2) ->
+              entry2.getValue().compareTo(entry1.getValue());
+
+      Collections.sort(entryList, valueComparator);
+
+      Map<String, Integer> sortedMap = new LinkedHashMap<>();
+      for (Map.Entry<String, Integer> entry : entryList) {
+         sortedMap.put(entry.getKey(), entry.getValue());
+      }
+
+
+      // Tronca la mappa dopo il 50° elemento
+      int limite = 50;
+      int conteggio = 0;
+      Iterator<Map.Entry<String, Integer>> iterator = sortedMap.entrySet().iterator();
+
+      while (iterator.hasNext()) {
+         iterator.next();
+         conteggio++;
+         if (conteggio > limite) {
+            iterator.remove(); // Rimuovi l'elemento corrente
+         }
+      }
+
+
+      return sortedMap;
+   }
+
       //Scrive in un file txt le occorrenze delle parole negli articoli
-   public  static void extraction(ArrayList<Article> articles){
+   public  static void extraction(String filePath){
 
       try
       {
-         Map<String , Integer >wordCount= TermsExtraction.countWords(articles);
+         //Deserializzo gli articoli del file txt
+         ArrayList<Article> articles= Deserialization.deserializeFileToArticle(filePath);
+
+         //Creo la mappa di coppie (parola, numero di occorenze)
+         Map<String , Integer >unsortedWords= TermsExtraction.countWords(articles);
+         //Ordino la Mappa e lascio solo i primi 50 elementi
+          Map<String , Integer >wordCount=TermsExtraction.sortWords(unsortedWords);
+
+
          BufferedWriter writer = new BufferedWriter(new FileWriter("./Files/output.txt"));
          for (Map.Entry<String, Integer> entry : wordCount.entrySet()) {
+            //Set<Entry<String, Integer>> entrySet = wordCount.entrySet();
+
             String word = entry.getKey();
             int count = entry.getValue();
             writer.write(word + ": " + count);
             writer.newLine();
          }
+         writer.close();
       System.out.println("OK");
 
       }catch (IOException e) {
@@ -103,9 +155,5 @@ public class TermsExtraction {
 
 
    }
-
-
-
-
 }
 */
