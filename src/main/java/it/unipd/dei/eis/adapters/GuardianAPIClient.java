@@ -92,6 +92,9 @@ public class GuardianAPIClient extends Adapter {
      */
     public void loadArrayList() {
 
+        if(responseArray[0] == null)
+            loadResponseArray();
+
         for(String response : responseArray) {
             try {
                 // Creazione di un oggetto JSON dalla risposta completa
