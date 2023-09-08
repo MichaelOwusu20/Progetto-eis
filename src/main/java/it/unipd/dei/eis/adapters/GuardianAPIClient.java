@@ -92,38 +92,49 @@ public class GuardianAPIClient extends Adapter {
      */
     public void loadArrayList() {
 
-        if(responseArray[0] == null)
-            loadResponseArray();
+        File folder = new File(filePath);
+        File[] files = folder.listFiles();
 
-        for(String response : responseArray) {
-            try {
-                // Creazione di un oggetto JSON dalla risposta completa
-                JSONObject jsonResponse = new JSONObject(response);
+        for(File file : files) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    line+=line;
+                    try {
+                        // Creazione di un oggetto JSON dalla risposta completa
+                        JSONObject jsonResponse = new JSONObject(line);
 
-                // Estrazione dell'oggetto "response" dall'oggetto JSON
-                JSONObject responseJson = jsonResponse.getJSONObject("response");
+                        // Estrazione dell'oggetto "response" dall'oggetto JSON
+                        JSONObject responseJson = jsonResponse.getJSONObject("response");
 
-                // Estrazione dell'array "results" dall'oggetto "response"
-                JSONArray articles = responseJson.getJSONArray("results");
+                        // Estrazione dell'array "results" dall'oggetto "response"
+                        JSONArray articles = responseJson.getJSONArray("results");
 
-                // Iterazione attraverso gli articoli nell'array "results"
-                for(int i=0; i<articles.length(); i++) {
-                    JSONObject article = articles.getJSONObject(i);
+                        // Iterazione attraverso gli articoli nell'array "results"
+                        for (int i = 0; i < articles.length(); i++) {
+                            JSONObject article = articles.getJSONObject(i);
 
-                    // Estrazione del titolo e del corpo dell'articolo
-                    String title = article.getString("webTitle");
-                    String body = article.getJSONObject("fields").getString("bodyText");
+                            // Estrazione del titolo e del corpo dell'articolo
+                            String title = article.getString("webTitle");
+                            String body = article.getJSONObject("fields").getString("bodyText");
 
-                    //aggiunge titolo e body all'arrayList
-                    articlesList.add(new Article(title, body));
+                            //aggiunge titolo e body all'arrayList
+                            articlesList.add(new Article(title, body));
+                        }
+
+                        //cattura eventuali eccezioni dovute ai file .json
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+
+                        //esci dal loop in caso di eccezione
+                        break;
+                    }
                 }
-            }
-            //cattura eventuali eccezioni dovute ai file .json
-            catch(JSONException e) {
-                e.printStackTrace();
 
-                //esci dal loop in caso di eccezione
-                break;
+            }
+            catch (IOException e) {
+                System.err.println("Errore durante la lettura del file: " + file.getName());
+                e.printStackTrace();
             }
         }
     }

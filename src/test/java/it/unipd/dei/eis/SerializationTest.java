@@ -9,7 +9,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
+
 
 /**
  * Testa il funzionamento della classe {@link Serialization} e del suo metodo
@@ -20,7 +20,7 @@ public class SerializationTest {
     private NYTimescsv csvAdapter;
 
     /**
-     * Verifica il funzionamento del metodo {@link Serialization#serializeArticlesToFile(ArrayList, String)}
+     * Verifica il funzionamento del metodo {@link Serialization"#serializeArticlesToFile(ArrayList, String)}"
      * nel caso in cui si stia lavorando con articoli del New York Times.
      */
     @Test
@@ -34,7 +34,7 @@ public class SerializationTest {
         GuardianAPIClient.makeDirectory("./tempDir/");
 
         //metodo che inserisce gli articoli dell'ArrayList in un unico file .txt
-        Serialization.serializeArticlesToFile(csvAdapter.getArrayList(), "./tempDir/temp_serialization.txt");
+        Serialization.serializeArticlesToFile(csvAdapter.getArrayList(), "./tempDir/temp_serialization.txt",false);
 
         //crea un array dei file presenti nella cartella temporanea creata
         File directory = new File("./tempDir/");
@@ -62,7 +62,7 @@ public class SerializationTest {
     }
 
     /**
-     * Verifica il funzionamento del metodo {@link Serialization#serializeArticlesToFile(ArrayList, String)}
+     * Verifica il funzionamento del metodo {@link "Serialization#serializeArticlesToFile(ArrayList, String)}
      * nel caso in cui si stia lavorando con articoli del The Guardian.
      */
     @Test
@@ -81,7 +81,7 @@ public class SerializationTest {
         GuardianAPIClient.makeDirectory("./tempDir/");
 
         //chiama il metodo che crea un file .txt contenente tutti gli articoli del The Guardian
-        Serialization.serializeArticlesToFile(jsonAdapter.getArrayList(), "./tempDir/temp_serialization.txt");
+        Serialization.serializeArticlesToFile(jsonAdapter.getArrayList(), "./tempDir/temp_serialization.txt",false);
 
         //crea un array dei file presenti nella cartella temporanea creata
         File directory = new File("./tempDir/");

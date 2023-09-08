@@ -15,6 +15,12 @@ public class DeserializationTest {
     private GuardianAPIClient jsonAdapter;
     private NYTimescsv csvAdapter;
 
+    /**
+     * Test del corretto funzionamento della funzione {@link Deserialization#deserializeFileToArticle(String)} per gli articoli NY Times.
+     * Carica gli articoli, in un'arraylist con relativa serializzazione
+     * Deserializzazione del file appena creato
+     * Confronto oggetti dell'array ottenuto con quello contenuto nell'arraylist della classe NYTime
+     */
     @Test
     public void NYTimeDerializationTest() {
         csvAdapter = new NYTimescsv();
@@ -27,7 +33,7 @@ public class DeserializationTest {
         GuardianAPIClient.makeDirectory("./tempDir/");
 
         //metodo che inserisce gli articoli dell'ArrayList in un unico file .txt
-        Serialization.serializeArticlesToFile(csvAdapter.getArrayList(), "./tempDir/temp_serialization.txt");
+        Serialization.serializeArticlesToFile(csvAdapter.getArrayList(), "./tempDir/temp_serialization.txt",false);
 
         ArrayList<Article> deserializedArray = Deserialization.deserializeFileToArticle("./tempDir/temp_serialization.txt");
 
@@ -48,8 +54,16 @@ public class DeserializationTest {
             System.err.println("Non è stato possibile eliminare la directory.");
     }
 
+    /**
+     *
+     * Test del corretto funzionamento della funzione {@link Deserialization#deserializeFileToArticle(String)} per gli articoli The Guardian.
+     * Scarica articoli TheGuardian in una cartella temporanea
+     * Carica gli articoli, in un'arraylist con relativa serializzazione
+     * Deserializzazione del file appena creato
+     * Confronto oggetti dell'array ottenuto con quello contenuto nell'arraylist della classe TheGuardian
+     */
     @Test
-    public void TheGuardianDerializationTest() {
+    public void TheGuardianDeserializationTest() {
 
         jsonAdapter = new GuardianAPIClient();
 
@@ -69,7 +83,7 @@ public class DeserializationTest {
         GuardianAPIClient.makeDirectory("./tempDir/");
 
         //metodo che inserisce gli articoli dell'ArrayList in un unico file .txt
-        Serialization.serializeArticlesToFile(jsonAdapter.getArrayList(), "./tempDir/temp_serialization.txt");
+        Serialization.serializeArticlesToFile(jsonAdapter.getArrayList(), "./tempDir/temp_serialization.txt", false);
 
         ArrayList<Article> deserializedArray = Deserialization.deserializeFileToArticle("./tempDir/temp_serialization.txt");
 
