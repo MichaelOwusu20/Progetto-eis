@@ -3,6 +3,8 @@ package it.unipd.dei.eis.adapters;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -74,7 +76,7 @@ public class GuardianAPIClient extends Adapter {
         for(int i=1; i<= responseArray.length; i++)
         {
             //salva i file e distingue i loro nomi con il numero di pagina
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath + "theguardian_article_" + i + ".json"))) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath + "theguardian_article_" + i/10 + i%10 + ".json"))) {
                 //scrive il contenuto della risposta all'interno del file
                 writer.write(responseArray[i-1]);
             } catch (IOException e) {
@@ -98,6 +100,7 @@ public class GuardianAPIClient extends Adapter {
         for(File file : files) {
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                 String line;
+
                 while ((line = reader.readLine()) != null) {
                     line+=line;
                     try {
@@ -130,6 +133,7 @@ public class GuardianAPIClient extends Adapter {
                         break;
                     }
                 }
+
 
             }
             catch (IOException e) {

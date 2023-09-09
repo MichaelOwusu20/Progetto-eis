@@ -2,6 +2,7 @@ package it.unipd.dei.eis;
 
 import it.unipd.dei.eis.adapters.GuardianAPIClient;
 import it.unipd.dei.eis.adapters.NYTimescsv;
+import it.unipd.dei.eis.serialization.Serialization;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -70,6 +71,7 @@ public class GuardianAPIClientTest {
       //elimina la cartella temporanea
       if(!GuardianAPIClient.deleteDirectory(new File(adapter.getFilePath())))
          System.err.println("Non è stato possibile eliminare la directory.");
+
    }
 
 }
