@@ -1,18 +1,18 @@
 package it.unipd.dei.eis;
 
-import it.unipd.dei.eis.adapters.GuardianAPIClient;
-import it.unipd.dei.eis.adapters.NYTimescsv;
-import it.unipd.dei.eis.serialization.Serialization;
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 import java.io.File;
+import it.unipd.dei.eis.adapters.GuardianAPIClient;
 
 /**
  * Classe che testa il funzionamento della classe {@link GuardianAPIClient} e dei suoi metodi.
  */
 public class GuardianAPIClientTest {
 
+   /**
+    * Oggetto della classe {@link GuardianAPIClient} utilizzato per eseguire i test.
+    */
    private GuardianAPIClient adapter;
 
    /**
@@ -71,7 +71,5 @@ public class GuardianAPIClientTest {
       //elimina la cartella temporanea
       if(!GuardianAPIClient.deleteDirectory(new File(adapter.getFilePath())))
          System.err.println("Non è stato possibile eliminare la directory.");
-
    }
-
 }

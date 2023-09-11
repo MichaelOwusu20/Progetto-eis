@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"it.unipd.dei.eis"},{"l":"it.unipd.dei.eis.adapters"},{"l":"it.unipd.dei.eis.serialization"}];updateSearchResults();

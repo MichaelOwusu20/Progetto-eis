@@ -1,35 +1,30 @@
-//String token for reading and counting token
 package it.unipd.dei.eis;
 
 import java.util.ArrayList;
 import java.util.Map;
-import it.unipd.dei.eis.serialization.Deserialization;
-
 import java.util.HashMap;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Comparator;
-
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import it.unipd.dei.eis.serialization.Deserialization;
 
 /**
- * La classe TermsExtraction contiene metodi per l'analisi degli articoli serializzati
+ * La classe TermsExtraction contiene metodi per l'analisi degli articoli serializzati.
  */
 public class TermsExtraction{
 
    /**
-    * Metodo che ordina gli elementi di una Map<String,Integer> per valori di Integer decrescenti.
+    * Metodo che ordina gli elementi di una mappa per valori di Integer decrescenti.
     * Poi tronca la mappa fino al 50°esimo elemento.
-    * @param words La mappa non ordinata
-    * @return La mappa ordinata con solo i primi 50 elementi
+    * @param words La mappa non ordinata.
+    * @return La mappa ordinata con solo i primi 50 elementi.
     */
-
-   public static Map<String,Integer> sortWords(Map<String,Integer> words )
+   private static Map<String,Integer> sortWords(Map<String,Integer> words )
    {
 
       //Creo una lista di entry della mappa words per usarne le coppie chiave-valore
@@ -39,15 +34,14 @@ public class TermsExtraction{
       Comparator<Map.Entry<String, Integer>> valueComparator = (entry1, entry2) ->
               entry2.getValue().compareTo(entry1.getValue());
 
-      //Si ordina la entryList in base al valueComparator , quindi per Integer decrescenti
+      //Si ordina la entryList in base al valueComparator, quindi per Integer decrescenti
       Collections.sort(entryList, valueComparator);
 
-      //Creo una nuova mappa e la riempio   con i valori ordinati di entryList
+      //Creo una nuova mappa e la riempio con i valori ordinati di entryList
       Map<String, Integer> sortedMap = new LinkedHashMap<>();
       for (Map.Entry<String, Integer> entry : entryList) {
          sortedMap.put(entry.getKey(), entry.getValue());
       }
-
 
       // Tronca la mappa dopo il 50° elemento
       int limite = 50;
@@ -64,17 +58,15 @@ public class TermsExtraction{
          }
       }
 
-
       return sortedMap;
    }
 
-
    /**
-    * Metodo che analizza gli articoli serializzati ( contenuti nel file serialize.txt) e mette il risultato dell'analisi in un altro file txt
-    * @param fileToDeserialize il percorso del file txt in cui sono presenti gli articoli serializzati
-    * @param fileOutput il percorso del file txt in cui verrà scritto il risultato dell'analisi
+    * Metodo che analizza gli articoli serializzati (contenuti nel file serialize.txt) e mette il risultato dell'analisi in un altro file txt.
+    * @param fileToDeserialize il percorso del file txt in cui sono presenti gli articoli serializzati.
+    * @param fileOutput il percorso del file txt in cui verrà scritto il risultato dell'analisi.
     */
-   public  static void extraction(String fileToDeserialize, String fileOutput){
+   public static void extraction(String fileToDeserialize, String fileOutput){
 
       try
       {
@@ -85,7 +77,6 @@ public class TermsExtraction{
          Map<String , Integer >unsortedWords= TermsExtraction.countWords(articles);
          //Ordino la Mappa e lascio solo i primi 50 elementi
           Map<String , Integer >wordCount=TermsExtraction.sortWords(unsortedWords);
-
 
          BufferedWriter writer = new BufferedWriter(new FileWriter(fileOutput));
          //Scrivo le parole e le rispettive occorrenze nel file di output
@@ -101,16 +92,14 @@ public class TermsExtraction{
       }catch (IOException e) {
          e.printStackTrace();
       }
-
    }
 
    /**
     * Metodo che riceve un ArrayList di oggetti Article e ritorna una mappa con le parole presenti in ogni articolo, insieme al numero di occorrenze di ogni parola.
     * @param articles L'ArrayList contenente tutti gli articoli.
-    * @return Una Map<String, Integer> in cui la String indica la parola , mentre l'Integer il numero di occorenze negli articoli.
+    * @return Una mappa in cui la String indica la parola , mentre l'Integer il numero di occorenze negli articoli.
     */
-   
-   public static Map<String,Integer> countWords(ArrayList<Article> articles){
+   private static Map<String,Integer> countWords(ArrayList<Article> articles){
 
       String allTheArticles= "";
 
@@ -121,7 +110,6 @@ public class TermsExtraction{
       //divido la stringa in parole e tolgo i segni di punteggiatura
       String[] words = allTheArticles.replaceAll("[^a-zA-Z ]", "").toLowerCase().split("\\s+");
 
-
       // Crea un Map per conteggiare le parole
       Map<String, Integer> wordCount = new HashMap<>();
 
@@ -131,6 +119,5 @@ public class TermsExtraction{
       }
 
       return wordCount;
-
    }
 }

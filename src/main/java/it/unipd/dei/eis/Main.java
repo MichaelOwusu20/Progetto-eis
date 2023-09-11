@@ -6,6 +6,9 @@ import it.unipd.dei.eis.adapters.NYTimescsv;
 
 import it.unipd.dei.eis.serialization.Serialization;
 
+/**
+ * Esecuzione del programma.
+ */
 public class Main {
 
 

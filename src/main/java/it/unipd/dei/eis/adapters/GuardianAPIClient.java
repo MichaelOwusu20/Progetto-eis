@@ -3,8 +3,6 @@ package it.unipd.dei.eis.adapters;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Arrays;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,18 +10,18 @@ import it.unipd.dei.eis.Article;
 
 /**
  * Permette di eseguire il download di diversi articoli utilizzando
- * The Guardian API e di creare un arrayList contenente tutti gli
+ * The Guardian API e di creare un arraylist di oggetti {@link Article} contenente tutti gli
  * articoli scaricati.
  */
 public class GuardianAPIClient extends Adapter {
 
     /**
-     * Chiave personale ottenuta dal sito del The Guardian mediante autentificazione.
+     * Chiave personale ottenuta dal sito del The Guardian mediante autenticazione.
      */
     private static final String API_KEY = "87ec1552-3962-48d7-9f7a-3b22f366781c";
 
     /**
-     * Link in cui vengono visualizzate le responses.
+     * Link in cui vengono visualizzate le risposte.
      */
     private static final String API_URL = "https://content.guardianapis.com/search?api-key=" + API_KEY;
 
@@ -44,21 +42,24 @@ public class GuardianAPIClient extends Adapter {
     private final String[] responseArray = new String[20];
 
     /**
-     * Ritorna una response contenente nell'array di responses.
+     * Costruttore che setta il percorso in cui si vogliono scaricare i files.
+     */
+    public GuardianAPIClient() {
+        filePath = "./Files/The Guardian/";
+    }
+
+    /**
+     * Ritorna una response contenuta nell'array di responses.
      * @param i posizione nell'array.
      * @return response in formato stringa.
      */
     public String getResponseArray(int i){ return responseArray[i]; }
 
     /**
-     *
+     * Individua il numero di pagine della risposta.
      * @return numero totali di pagine.
      */
     public int getTotalPages() { return totalPages; }
-
-    public GuardianAPIClient() {
-        filePath = "./Files/The Guardian/";
-    }
 
     /**
      * Esegue il download delle responses nella cartella indicata dal costruttore.
@@ -89,14 +90,16 @@ public class GuardianAPIClient extends Adapter {
      * Analizza le risposte .json contenute nella variabile
      * {@link GuardianAPIClient#responseArray}. Per ognuna di esse
      * estrae gli articoli e li converte in oggetti {@link Article},
-     *  i quali verranno inseriti in {@link Adapter#articlesList}
+     * i quali verranno inseriti in {@link Adapter#articlesList}
      *
      */
     public void loadArrayList() {
 
+        //crea un array con gli elementi presenti nella cartella indicata
         File folder = new File(filePath);
         File[] files = folder.listFiles();
 
+        //per ogni file legge il suo contenuto e lo trasforma in una stringa
         for(File file : files) {
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                 String line;
@@ -133,7 +136,6 @@ public class GuardianAPIClient extends Adapter {
                         break;
                     }
                 }
-
 
             }
             catch (IOException e) {

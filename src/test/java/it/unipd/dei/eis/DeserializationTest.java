@@ -1,25 +1,32 @@
 package it.unipd.dei.eis;
 
-import it.unipd.dei.eis.adapters.*;
-import it.unipd.dei.eis.serialization.Deserialization;
-import it.unipd.dei.eis.serialization.Serialization;
 import org.junit.Test;
-
+import static org.junit.Assert.*;
 import java.io.File;
 import java.util.ArrayList;
+import it.unipd.dei.eis.adapters.*;
+import it.unipd.dei.eis.serialization.*;
 
-import static org.junit.Assert.*;
-
+/**
+ * Testa il corretto funzionamento della classe {@link Deserialization}.
+ */
 public class DeserializationTest {
 
+    /**
+     * Oggetto della classe {@link GuardianAPIClient} utilizzato per eseguire i test.
+     */
     private GuardianAPIClient jsonAdapter;
+
+    /**
+     * Oggetto della classe {@link NYTimescsv} utilizzato per eseguire i test.
+     */
     private NYTimescsv csvAdapter;
 
     /**
-     * Test del corretto funzionamento della funzione {@link Deserialization#deserializeFileToArticle(String)} per gli articoli NY Times.
-     * Carica gli articoli, in un'arraylist con relativa serializzazione
-     * Deserializzazione del file appena creato
-     * Confronto oggetti dell'array ottenuto con quello contenuto nell'arraylist della classe NYTime
+     * Testa il corretto funzionamento del metodo {@link Deserialization#deserializeFileToArticle(String)} per gli articoli NY Times.
+     * Carica gli articoli in un'arraylist e li serializza in un file txt.
+     * Deserializza il file appena creato e confronta gli oggetti
+     * dell'array ottenuto con quello contenuto nell'arraylist della classe {@link NYTimescsv}.
      */
     @Test
     public void NYTimeDerializationTest() {
@@ -35,14 +42,17 @@ public class DeserializationTest {
         //metodo che inserisce gli articoli dell'ArrayList in un unico file .txt
         Serialization.serializeArticlesToFile(csvAdapter.getArrayList(), "./tempDir/temp_serialization.txt",false);
 
+        //deserializzazione del file appena creato
         ArrayList<Article> deserializedArray = Deserialization.deserializeFileToArticle("./tempDir/temp_serialization.txt");
 
         //verifica che la lunghezza dell'arrayList creato sia pari al numero totale di articoli
         assertEquals(1000, deserializedArray.size());
 
+        //confronta ogni oggetto della deserializzazione con ogni elemento presente nella variabile articlesList della classe NYTimescsv
         int i = 0;
         for(Article article : deserializedArray)
         {
+            //sia titolo che body devono combaciare
             assertEquals(article.getTitle() , csvAdapter.getArrayList().get(i).getTitle());
             assertEquals(article.getBodyArticle() , csvAdapter.getArrayList().get(i).getBodyArticle());
             i++;
@@ -55,12 +65,10 @@ public class DeserializationTest {
     }
 
     /**
-     *
-     * Test del corretto funzionamento della funzione {@link Deserialization#deserializeFileToArticle(String)} per gli articoli The Guardian.
-     * Scarica articoli TheGuardian in una cartella temporanea
-     * Carica gli articoli, in un'arraylist con relativa serializzazione
-     * Deserializzazione del file appena creato
-     * Confronto oggetti dell'array ottenuto con quello contenuto nell'arraylist della classe TheGuardian
+     * Testa il corretto funzionamento del metodo {@link Deserialization#deserializeFileToArticle(String)} per gli articoli The Guardian.
+     * Carica gli articoli in un'arraylist e li serializza in un file txt.
+     * Deserializza il file appena creato e confronta gli oggetti
+     * dell'array ottenuto con quello contenuto nell'arraylist della classe {@link GuardianAPIClient}.
      */
     @Test
     public void TheGuardianDeserializationTest() {
@@ -85,6 +93,7 @@ public class DeserializationTest {
         //metodo che inserisce gli articoli dell'ArrayList in un unico file .txt
         Serialization.serializeArticlesToFile(jsonAdapter.getArrayList(), "./tempDir/temp_serialization.txt", false);
 
+        //deserializzazione del file appena creato
         ArrayList<Article> deserializedArray = Deserialization.deserializeFileToArticle("./tempDir/temp_serialization.txt");
 
         //verifica che la lunghezza dell'arrayList creato sia pari al numero totale di articoli

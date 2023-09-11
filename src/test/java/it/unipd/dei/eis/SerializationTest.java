@@ -1,26 +1,32 @@
 package it.unipd.dei.eis;
 
-import it.unipd.dei.eis.adapters.*;
-import it.unipd.dei.eis.serialization.Serialization;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-
+import java.util.ArrayList;
+import it.unipd.dei.eis.adapters.*;
+import it.unipd.dei.eis.serialization.Serialization;
 
 /**
- * Testa il funzionamento della classe {@link Serialization} e del suo metodo
+ * Testa il funzionamento della classe {@link Serialization} e del suo metodo.
  */
 public class SerializationTest {
 
+    /**
+     * Oggetto della classe {@link GuardianAPIClient} utilizzato per eseguire i test.
+     */
     private GuardianAPIClient jsonAdapter;
+
+    /**
+     * Oggetto della classe {@link NYTimescsv} utilizzato per eseguire i test.
+     */
     private NYTimescsv csvAdapter;
 
     /**
-     * Verifica il funzionamento del metodo {@link Serialization"#serializeArticlesToFile(ArrayList, String)}"
+     * Verifica il funzionamento del metodo {@link Serialization#serializeArticlesToFile(ArrayList, String, boolean)}
      * nel caso in cui si stia lavorando con articoli del New York Times.
      */
     @Test
@@ -62,7 +68,7 @@ public class SerializationTest {
     }
 
     /**
-     * Verifica il funzionamento del metodo {@link "Serialization#serializeArticlesToFile(ArrayList, String)}
+     * Verifica il funzionamento del metodo {@link Serialization#serializeArticlesToFile(ArrayList, String, boolean)}
      * nel caso in cui si stia lavorando con articoli del The Guardian.
      */
     @Test

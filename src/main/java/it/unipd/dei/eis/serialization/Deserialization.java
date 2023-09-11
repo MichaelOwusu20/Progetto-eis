@@ -1,23 +1,20 @@
-
 package it.unipd.dei.eis.serialization;
-//a file .JSON
 
 import java.util.ArrayList;
-import it.unipd.dei.eis.Article;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.BufferedReader;
+import it.unipd.dei.eis.Article;
 
 /**
- * La classe Deserialization fornisce metodi per deserializzare un file txt in un ArrayList di oggetti Article
+ * La classe Deserialization fornisce metodi per deserializzare un file txt in un ArrayList di oggetti {@link Article}.
  */
 public class Deserialization {
 
-
    /**
-    * Questo metodo deserializza un file txt in un ArrayList di oggetti Article
-    * @param filePath Il percorso del file da deserializzare
-    * @return L'ArrayList di Article che risulta dopo la deserializzazione
+    * Questo metodo deserializza un file txt in un ArrayList di oggetti Article.
+    * @param filePath Il percorso del file da deserializzare.
+    * @return L'ArrayList di Article che risulta dopo la deserializzazione.
     */
    public static ArrayList<Article> deserializeFileToArticle(String filePath) {
       ArrayList<Article> articles = new ArrayList<>();

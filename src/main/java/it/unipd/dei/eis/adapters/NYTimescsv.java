@@ -7,51 +7,54 @@ import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;
 import it.unipd.dei.eis.Article;
 
+/**
+ * Crea un arraylist di oggetti {@link Article} a partire
+ * dai file csv forniti dal New York Times.
+ */
 public class NYTimescsv extends Adapter {
 
+    /**
+     * Costruttore che setta il percorso in cui sono presenti i files.
+     */
     public NYTimescsv(){
         filePath = "./Files/NY Times/";
     }
 
-    // public void loadArrayList() throws CsvValidationException, FileNotFoundException
-
     /**
-     * Controllo del formato del file e del nome del file nella directory presente all'interno
-     * della variabile filePath
-     */
-    /**
-     * Controllo la correttezza della composizione del file, ovvero divisione in 7 colonne,
-     * con colonna 2 => Titolo e colonna 3 => Corpo dell'Articolo
+     * Controlla che il file csv sia presente all'interno della directory indicata nella
+     * variabile {@link Adapter#filePath}, converte gli articoli in oggetti Article e li
+     * inserisce nella variabile {@link Adapter#articlesList}.
      */
     public void loadArrayList() {
 
         CSVReader csvReader;
-
+        //Controlla che il file sia presente nella cartella indicata
         try {
             csvReader = new CSVReader(new FileReader(filePath+"nytimes_articles_v2.csv"));
         } catch (FileNotFoundException e) {
-            System.out.println("[ERROR] - Check the file name and path");
+            System.err.println("Errore, controlla il nome del file o il percorso.");
             throw new RuntimeException(e);
         }
 
+        //Controlla la correttezza della composizione del file, ovvero divisione in 7 colonne,
+        // colonna 2 => Titolo e colonna 3 => Corpo dell'Articolo
         try {
-            csvReader.readNext(); //skip line 1
+            csvReader.readNext(); //salta la prima riga
             String[] line;
-            while((line = csvReader.readNext()) != null){ //lettura riga x riga file, finché non è nulla
+            while((line = csvReader.readNext()) != null){ //lettura riga per riga file, finché non è nulla
                 if(line.length != 7){ //file .csv deve avere 7 colonne/campi
                     throw new CsvValidationException("File con campi sbagliati");
                 }
-                String title=line[2];
-                String bodyArticle=line[3];
+                String title=line[2]; //titolo
+                String bodyArticle=line[3]; //corpo
                 articlesList.add(new Article(title, bodyArticle)); //creazione oggetto Article, con title e bodyArticle
             }
             csvReader.close();
         } catch (IOException e) {
-            System.out.println("Errore nella lettura");
+            System.err.println("Errore nella lettura");
         }
         catch (CsvValidationException e){
-            System.out.println("Errore - CSV non valido");
+            System.err.println("Errore, CSV non valido");
         }
-    }//chiude funzione
-
+    }
 }
