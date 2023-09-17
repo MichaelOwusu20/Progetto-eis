@@ -3,6 +3,8 @@ package it.unipd.dei.eis.adapters;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,7 +20,7 @@ public class GuardianAPIClient extends Adapter {
     /**
      * Chiave personale ottenuta dal sito del The Guardian mediante autenticazione.
      */
-    private static final String API_KEY = "87ec1552-3962-48d7-9f7a-3b22f366781c";
+    private static final String API_KEY = "f03b204b-b551-42cd-a09e-324f14a31a59";
 
     /**
      * Link in cui vengono visualizzate le risposte.
@@ -85,7 +87,7 @@ public class GuardianAPIClient extends Adapter {
             }
         }
     }
-
+    
     /**
      * Analizza le risposte .json contenute nella variabile
      * {@link GuardianAPIClient#responseArray}. Per ognuna di esse
@@ -98,6 +100,9 @@ public class GuardianAPIClient extends Adapter {
         //crea un array con gli elementi presenti nella cartella indicata
         File folder = new File(filePath);
         File[] files = folder.listFiles();
+
+        //ordina i file nella cartella in ordine alfabetico
+        Arrays.sort(files);
 
         //per ogni file legge il suo contenuto e lo trasforma in una stringa
         for(File file : files) {

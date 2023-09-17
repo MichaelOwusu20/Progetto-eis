@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: it.unipd.dei.eis.SerializationTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 19.794 s - in it.unipd.dei.eis.SerializationTest

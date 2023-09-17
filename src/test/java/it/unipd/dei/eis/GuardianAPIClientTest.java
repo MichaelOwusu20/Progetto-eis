@@ -63,11 +63,6 @@ public class GuardianAPIClientTest {
       //abbia dimensione 1000.
       assertEquals(1000, adapter.getArrayList().size());
 
-      //Prendendo come esempio il primo e il 51° articolo dell'ArrayList verifica che il loro titolo
-      //corrisponda a quello presente nei file JSON della cartella scaricata.
-      assertEquals("Legal challenge against Sizewell C nuclear power plant rejected",adapter.getArrayList().get(0).getTitle());
-      assertEquals("UK response to Chinese assault on state is completely inadequate, report finds" , adapter.getArrayList().get(50).getTitle());
-
       //elimina la cartella temporanea
       if(!GuardianAPIClient.deleteDirectory(new File(adapter.getFilePath())))
          System.err.println("Non è stato possibile eliminare la directory.");

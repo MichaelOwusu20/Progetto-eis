@@ -3,14 +3,12 @@ package it.unipd.dei.eis;
 import java.util.Scanner;
 import it.unipd.dei.eis.adapters.GuardianAPIClient;
 import it.unipd.dei.eis.adapters.NYTimescsv;
-
 import it.unipd.dei.eis.serialization.Serialization;
 
 /**
  * Esecuzione del programma.
  */
 public class Main {
-
 
     public static void main(String[] args) {
 
@@ -134,20 +132,18 @@ public class Main {
                     client4.downloadTheGuardian();
                     System.out.println("---Download eseguito con successo---");
 
-                    //Controllo se sono già stati serializzati gli articoli del The Guardian
-                    if (the_guardian) {
-                        System.out.println("Hai già serializzato gli articoli del The Guardian, per favore scegli un'altra opzione.");
-                        break;
-                    }
+
+                    //Voglio sovrascrivere il file serialize.txt
+                    overwrite=true;
+                    //Eseguo il reset delle variabili di controllo
+                    the_guardian=false;
+                    nyt=false;
 
                     client4.loadArrayList();
                     //La variabile di controllo overwrite mi determina se il file verrà sovrascritto
                     Serialization.serializeArticlesToFile(client4.getArrayList(), "./Files/serialize.txt", overwrite);
                     System.out.println("----Gli articoli del The Guardian sono stati serializzati----");
-                    //Dopo aver scritto nel file serialize.txt non voglio che venga sovrascritto
-                    overwrite = false;
-                    //modifico la variabile the_guardian dopo la prima serializzazione degli articoli
-                    the_guardian = true;
+
 
                     //Faccio l'analisi dei file serializzati e contenuti nel file serialize.txt
                     //Il risulato verrà scritto in output.txt

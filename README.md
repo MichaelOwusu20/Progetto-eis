@@ -62,9 +62,7 @@ ed aprire il file "index.html".
 
 json
 
-
 csv
 
 junit 
-
 
